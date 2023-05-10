@@ -4,6 +4,11 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import { fetchImages } from './fetchImages';
 import { createImage } from './createImages';
 
+let simpleLightBox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+
 const refs = {
   form: document.querySelector('#search-form'),
   input: document.querySelector('.search-input'),
@@ -31,13 +36,16 @@ async function onFormSubmit(evt) {
       const markup = createImage(response.data);
       refs.gallery.insertAdjacentHTML('beforeend', markup);
       notification(response.data.hits.length, response.data.total);
+      simpleLightBox.refresh();
     } catch (error) {
       console.log(error);
     }
   } else {
     refs.loadMoreBtn.style.display = 'none';
 
-    Notiflix.Notify.warning('🛑Oh noo, the fild is empty! Please fill it!');
+    Notiflix.Notify.warning(
+      '🛑Sorry, there are no images matching your search query. Please try again.'
+    );
   }
 }
 
@@ -53,11 +61,6 @@ async function onLoadBtn() {
     console.log(error);
   }
 }
-
-const simpleLightBox = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionDelay: 250,
-});
 
 function notification(length, totalHits) {
   if (length === 0) {
