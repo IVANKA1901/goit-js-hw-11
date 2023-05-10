@@ -37,9 +37,7 @@ async function onFormSubmit(evt) {
   } else {
     refs.loadMoreBtn.style.display = 'none';
 
-    Notiflix.Notify.failure(
-      '❌Sorry, there are no images matching your search query. Please try again.'
-    );
+    Notiflix.Notify.warning('🛑Oh noo, the fild is empty! Please fill it!');
   }
 }
 
