@@ -61,9 +61,7 @@ const simpleLightBox = new SimpleLightbox('.gallery a', {
 
 function notification(length, totalHits) {
   if (length === 0) {
-    Notiflix.Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.'
-    );
+    Notiflix.Notify.warning('🛑Oh noo, the fild is empty! Please fill it!');
 
     refs.loadMoreBtn.style.display = 'none';
     return;
